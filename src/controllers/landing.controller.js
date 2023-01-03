@@ -1,9 +1,6 @@
 import { pool } from "../db.js";
-/**
- * Rutas de prueba de conexion y manipulacion con las bases de datos
- */
 
-export const testCleanPlayerTable = async (req, res) => {
+export const cleanContactTable = async (req, res) => {
   try {
     const query = "DELETE FROM table_contact";
     const [result] = await pool.query(query);
@@ -28,8 +25,33 @@ export const testCleanPlayerTable = async (req, res) => {
     });
   }
 };
+export const cleanNewsletterTable = async (req, res) => {
+  try {
+    const query = "DELETE FROM table_newsletter";
+    const [result] = await pool.query(query);
+    res.status(200).json({
+      result: "1",
+      message: {
+        response: result,
+      },
+      code: "200",
+    });
+  } catch (e) {
+    return res.status(500).json({
+      result: "0",
+      message: {
+        response: [
+          {
+            Error: e,
+          },
+        ],
+      },
+      code: "500",
+    });
+  }
+};
 
-export const testNoDBRoute = (req, res) => {
+export const isServerRunning = (req, res) => {
   try {
     res.status(200).json({
       result: "1",
@@ -60,7 +82,7 @@ export const testNoDBRoute = (req, res) => {
   }
 };
 
-export const testGetRoute = async (req, res) => {
+export const getAllContact = async (req, res) => {
   try {
     const query = "SELECT * FROM table_contact";
     const [result] = await pool.query(query);
@@ -86,7 +108,7 @@ export const testGetRoute = async (req, res) => {
   }
 };
 
-export const testPostRoute = async (req, res) => {
+export const postContact = async (req, res) => {
   try {
     const { nombre, email, phone, puesto, empresa, mensaje } = req.body;
     const query =
@@ -99,18 +121,7 @@ export const testPostRoute = async (req, res) => {
       empresa,
       mensaje,
     ]);
-    /*res.status(200).json({
-      result: "1",
-      message: {
-        response: [
-          {
-            insertedId: row.insertId,
-          },
-        ],
-      },
-      code: "200",
-    });
-    */
+
     res.redirect("https://turing-ia-prueba.netlify.app/");
   } catch (e) {
     return res.status(500).json({
@@ -127,7 +138,7 @@ export const testPostRoute = async (req, res) => {
   }
 };
 
-export const testPostNewsletterRoute = async (req, res) => {
+export const postNewsletterRoute = async (req, res) => {
   try {
     const { email } = req.body;
     const query = "INSERT INTO table_newsletter (email) VALUES (?);";
@@ -140,38 +151,6 @@ export const testPostNewsletterRoute = async (req, res) => {
             insertedId: row.insertId,
           },
         ],
-      },
-      code: "200",
-    });
-
-    //res.redirect("https://turing-ia-prueba.netlify.app/");
-  } catch (e) {
-    return res.status(500).json({
-      result: "0",
-      message: {
-        response: [
-          {
-            Error: e,
-          },
-        ],
-      },
-      code: "500",
-    });
-  }
-};
-
-export const testGetRouteParams = async (req, res) => {
-  try {
-    const idToFind = req.params.id;
-    const query = "SELECT * FROM table_contact WHERE id=?";
-    let [result] = await pool.query(query, idToFind);
-    if (result.length == 0) {
-      result = [{ Error: "El id solicitado no se encuentra registrado" }];
-    }
-    res.status(200).json({
-      result: "1",
-      message: {
-        response: result,
       },
       code: "200",
     });
