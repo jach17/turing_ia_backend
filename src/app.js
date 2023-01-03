@@ -4,6 +4,7 @@ import testRouter from "./routes/test.routes.js";
 const api = "/api/turing_back";
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 /*** TEST ROUTES api url and db connection  ***/
 app.use(`${api}/test`, testRouter);
 
