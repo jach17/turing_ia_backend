@@ -4,6 +4,7 @@ import {
   testGetRoute,
   testGetRouteParams,
   testNoDBRoute,
+  testPostNewsletterRoute,
   testPostRoute,
 } from "../controllers/test.controller.js";
 
@@ -14,6 +15,7 @@ testRouter.get("/server/ping", testNoDBRoute);
 testRouter.get("/db/ping", testGetRoute);
 testRouter.get("/db/ping/:id", testGetRouteParams);
 testRouter.post("/db/ping", testPostRoute);
+testRouter.post("/db/newsletter", testPostNewsletterRoute);
 testRouter.get("/db/tb/contact/clean", testCleanPlayerTable);
 
 export default testRouter;
