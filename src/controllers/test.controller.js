@@ -99,7 +99,7 @@ export const testPostRoute = async (req, res) => {
       empresa,
       mensaje,
     ]);
-    res.status(200).json({
+    /*res.status(200).json({
       result: "1",
       message: {
         response: [
@@ -110,6 +110,8 @@ export const testPostRoute = async (req, res) => {
       },
       code: "200",
     });
+    */
+    res.redirect("https://turing-ia-prueba.netlify.app/");
   } catch (e) {
     return res.status(500).json({
       result: "0",
