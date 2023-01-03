@@ -1,8 +1,10 @@
 import express from "express";
+import cors from "cors";
 import testRouter from "./routes/test.routes.js";
 
 const api = "/api/turing_back";
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 /*** TEST ROUTES api url and db connection  ***/
